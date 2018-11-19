@@ -2577,14 +2577,13 @@ var ModificationComponent = /** @class */ (function () {
         this.query = '';
         this.executedQuery = '';
         this.funct = 'INSERT INTO';
-        this.tbl = 'Test';
+        this.tbl = 'Bars';
         this.functions = [
             { label: 'INSERT INTO', value: 'INSERT INTO' },
             { label: 'UPDATE', value: 'UPDATE' },
             { label: 'DELETE FROM', value: 'DELETE FROM' }
         ];
         this.tables = [
-            { label: 'Test', value: 'Test' },
             { label: 'Bars', value: 'Bars' },
             { label: 'Bartenders', value: 'Bartenders' },
             { label: 'Beers', value: 'Beers' },
@@ -2598,7 +2597,6 @@ var ModificationComponent = /** @class */ (function () {
             { label: 'Items', value: 'Items' },
             { label: 'Sells', value: 'Sells' },
             { label: 'Stocked', value: 'Stocked' },
-            { label: 'testFrequents', value: 'testFrequents' },
             { label: 'Works', value: 'Works' }
         ];
     }

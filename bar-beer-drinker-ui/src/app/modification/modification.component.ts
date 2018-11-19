@@ -25,7 +25,7 @@ export class ModificationComponent implements OnInit {
   query='';
   executedQuery='';
   funct='INSERT INTO';
-  tbl='Test';
+  tbl='Bars';
   handleClick() {
      if(this.query == '')
     {
@@ -63,7 +63,6 @@ export class ModificationComponent implements OnInit {
     
       ];
       this.tables = [
-        {label:'Test', value:'Test'},
         {label:'Bars', value:'Bars'},        
         {label:'Bartenders', value:'Bartenders'},
         {label:'Beers', value:'Beers'},
@@ -77,7 +76,6 @@ export class ModificationComponent implements OnInit {
         {label:'Items', value:'Items'},
         {label:'Sells', value:'Sells'},
         {label:'Stocked', value:'Stocked'},
-        {label:'testFrequents', value:'testFrequents'},
         {label:'Works', value:'Works'}
 
         
