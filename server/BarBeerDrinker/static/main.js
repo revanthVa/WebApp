@@ -2505,6 +2505,9 @@ var ModificationService = /** @class */ (function () {
     ModificationService.prototype.getModification = function (modification) {
         return this.http.get('/api/modification/' + encodeURIComponent(modification));
     };
+    ModificationService.prototype.sendQuery = function (query) {
+        return this.http.get('/api/update/' + query);
+    };
     ModificationService = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
             providedIn: 'root'
@@ -2536,7 +2539,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron jumbotron-fluid\">\n  <div class=\"container\">\n      <h1 class=\"display-4\">Modification</h1>\n  </div>\n</div>\n\n<div class = \"container\">\n  <textarea [rows]=\"5\" [cols]=\"10\" pInputTextarea autoResize=\"autoResize\"\n  type=\"text\" class=\"form-control\" id=\"mod\" required [(ngModel)]=\"mod\"\n  name=\"mod\" placeholder=\"Enter your Modification here\"></textarea>\n  <br/>\n  <input type=\"Submit\" value=\"Submit\" (click)=\"getModification()\">\n  <br/>"
+module.exports = "<div class=\"jumbotron jumbotron-fluid\">\n    <div class=\"container\">\n      <h1 class=\"display-4\">Modification Page</h1>\n       <p class=\"modify\" *ngIf=\"modify\">\n          </p>\n    </div>\n  </div>\n  <div class = \"container\">\n    <br>\n    <p-dropdown [options]=\"functions\" [(ngModel)]=\"funct\"></p-dropdown>\n    <p-dropdown [options]=\"tables\" [(ngModel)]=\"tbl\"></p-dropdown>\n    <textarea [rows]=\"5\" [cols]=\"10\" pInputTextarea autoResize=\"autoResize\"\n    type=\"text\" class=\"form-control\" id=\"query\" required [(ngModel)]=\"query\"\n    name=\"query\" placeholder=\"Enter Values, Set And/Or Where Parameters: &emsp; ex: (name, id) VALUES ('sam', 'qwerty');'\"></textarea>\n  </div>\n  <div class = \"container\" id = \"content\">\n  <br>\n  \n  <p-button label=\"Modify\" (onClick)=\"handleClick($event)\"></p-button>\n  <p id = \"Message\">{{ resultMessage }}</p>\n  </div>"
 
 /***/ }),
 
@@ -2551,7 +2554,8 @@ module.exports = "<div class=\"jumbotron jumbotron-fluid\">\n  <div class=\"cont
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ModificationComponent", function() { return ModificationComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
-/* harmony import */ var _modification_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../modification.service */ "./src/app/modification.service.ts");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _modification_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../modification.service */ "./src/app/modification.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2563,42 +2567,70 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
 };
 
 
+
 var ModificationComponent = /** @class */ (function () {
-    function ModificationComponent(modificationservice) {
-        this.modificationservice = modificationservice;
+    function ModificationComponent(modService, route) {
+        this.modService = modService;
+        this.route = route;
+        this.value = '';
+        this.resultMessage = '';
+        this.query = '';
+        this.executedQuery = '';
+        this.funct = 'INSERT INTO';
+        this.tbl = 'Test';
+        this.functions = [
+            { label: 'INSERT INTO', value: 'INSERT INTO' },
+            { label: 'UPDATE', value: 'UPDATE' },
+            { label: 'DELETE FROM', value: 'DELETE FROM' }
+        ];
+        this.tables = [
+            { label: 'Test', value: 'Test' },
+            { label: 'Bars', value: 'Bars' },
+            { label: 'Bartenders', value: 'Bartenders' },
+            { label: 'Beers', value: 'Beers' },
+            { label: 'BillsNew', value: 'BillsNew' },
+            { label: 'Bought', value: 'Bought' },
+            { label: 'Date', value: 'Date' },
+            { label: 'Drinks', value: 'Drinks' },
+            { label: 'Foods', value: 'Frequents' },
+            { label: 'Has', value: 'Has' },
+            { label: 'Hours', value: 'Hours' },
+            { label: 'Items', value: 'Items' },
+            { label: 'Sells', value: 'Sells' },
+            { label: 'Stocked', value: 'Stocked' },
+            { label: 'testFrequents', value: 'testFrequents' },
+            { label: 'Works', value: 'Works' }
+        ];
     }
-    ModificationComponent.prototype.ngOnInit = function () {
-    };
-    ModificationComponent.prototype.getModification = function () {
+    ModificationComponent.prototype.handleClick = function () {
         var _this = this;
-        this.columns = [];
-        this.modificationservice.getModification(this.mod).subscribe(function (data) {
-            _this.modResults = data;
-        }, function (error) {
-            if (error.status === 404) {
-                alert('Invalidates foreign key');
-            }
-            else {
-                console.error(error.status + ' - ' + error.body);
-                alert('Invalid Modification');
-            }
-        }, function () {
-            for (var _i = 0, _a = _this.modResults; _i < _a.length; _i++) {
-                var row = _a[_i];
-                for (var col in row) {
-                    _this.columns.push(col);
-                }
-                break;
-            }
-        });
+        if (this.query == '') {
+            alert('Specify Parameters');
+            //this.clickMessage = 'Please enter a query';
+        }
+        else {
+            //this.query="INSERT INTO Test (name, id) VALUES ('"+this.beername+"', '"+this.manfname+"')";
+            this.executedQuery = this.funct + ' ' + this.tbl + ' ' + this.query;
+            console.log(this.executedQuery);
+            this.modService.sendQuery(this.executedQuery).subscribe(function (data) {
+                _this.result = data;
+                _this.resultMessage = _this.result.first;
+            }, function (error) {
+                alert('could not process query');
+            });
+        }
+        this.executedQuery = '';
+    };
+    ModificationComponent.prototype.ngOnInit = function () {
     };
     ModificationComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-modification',
             template: __webpack_require__(/*! ./modification.component.html */ "./src/app/modification/modification.component.html"),
-            styles: [__webpack_require__(/*! ./modification.component.css */ "./src/app/modification/modification.component.css")]
+            styles: [__webpack_require__(/*! ./modification.component.css */ "./src/app/modification/modification.component.css")],
         }),
-        __metadata("design:paramtypes", [_modification_service__WEBPACK_IMPORTED_MODULE_1__["ModificationService"]])
+        __metadata("design:paramtypes", [_modification_service__WEBPACK_IMPORTED_MODULE_2__["ModificationService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_1__["ActivatedRoute"]])
     ], ModificationComponent);
     return ModificationComponent;
 }());
@@ -2764,7 +2796,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"jumbotron jumbotron-fluid\">\n  <div class=\"container\">\n    <h1 class=\"display-4\">Welcome to BarBeerDrinker!</h1>\n    <p class=\"lead\">Select a bar below to see some advanced statistics and analytics about it.\n    </p>\n      <a class=\"nav-link\" routerLink=\"/barsAnalytics\">Bar Analytics</a>\n  </div>\n</div>\n\n<div class=\"container\">\n    <p-table [value]=\"bars\">\n      <ng-template pTemplate=\"header\">\n          <tr>\n            <th>Name</th>\n            <th>License</th>\n            <th>Phone</th>\n            <th>Address</th>\n            <th>City</th>\n            <th>State</th>\n          </tr>\n      </ng-template>\n      <ng-template pTemplate=\"body\" let-bar>\n          <tr>\n            <td>\n              <a routerLink=\"/bars/{{ bar.name }}\">\n                {{bar.name}}\n              </a>\n            </td>\n            <td>{{bar.license}}</td>\n            <td>{{bar.phone}}</td>\n            <td>{{bar.addr}}</td>\n            <td>{{bar.city}}</td>\n            <td>{{bar.state}}</td>\n          </tr>\n      </ng-template>\n    </p-table>\n  </div>\n\n  <br><br>"
+module.exports = "<body background=\"https://www.bostonmagazine.com/wp-content/uploads/sites/2/2015/06/shutterstock_Glasses-of-light-and-dark-beer-on-a-pub-background.jpg\">\n<div class=\"jumbotron jumbotron-fluid\">\n  <div class=\"container\">\n    \n    <h1 class=\"display-4\"> Welcome to BarBeerDrinker!</h1>\n    <p class=\"lead\">Select a bar below to see some advanced statistics and analytics about it.\n    </p>\n      <a class=\"nav-link\" routerLink=\"/barsAnalytics\">Bar Analytics</a>\n  </div>\n</div>\n\n<div class=\"container\">\n    <p-table [value]=\"bars\" styleClass=\"someStyleClass\">\n      <ng-template pTemplate=\"header\">\n          <tr>\n            <th>Name</th>\n            <th>License</th>\n            <th>Phone</th>\n            <th>Address</th>\n            <th>City</th>\n            <th>State</th>\n          </tr>\n      </ng-template>\n      <ng-template pTemplate=\"body\" let-bar>\n          <tr>\n            <td>\n              <a routerLink=\"/bars/{{ bar.name }}\">\n                {{bar.name}}\n              </a>\n            </td>\n            <td>{{bar.license}}</td>\n            <td>{{bar.phone}}</td>\n            <td>{{bar.addr}}</td>\n            <td>{{bar.city}}</td>\n            <td>{{bar.state}}</td>\n          </tr>\n      </ng-template>\n    </p-table>\n  </div>\n\n  <br><br>\n</body>"
 
 /***/ }),
 

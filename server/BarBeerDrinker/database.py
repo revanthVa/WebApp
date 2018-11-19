@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy import sql
 from BarBeerDrinker import config
-
+from flask import request
 engine = create_engine(config.database_uri)
 
 def get_drinkers():
@@ -385,3 +385,15 @@ def get_bartender_shift(name):
         if results is None:
             return None
         return results
+def update_table(query):
+    with engine.connect() as con:
+        result = {"first": "error"}
+        try:
+            rs = con.execute(query)
+            result["first"] = "Table has been updated"
+            return result
+        except Exception as e:
+            result["first"] = str(e)
+            return result
+        except ValueError as e:
+            return result

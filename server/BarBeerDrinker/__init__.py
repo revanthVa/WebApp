@@ -340,4 +340,7 @@ def get_drinker_spending(name, date):
         return make_response(str(e), 400)
     except Exception as e:
         return make_response(str(e), 500)
-            
+@app.route('/api/update/<query>', methods=["GET"])
+def update_table(query):
+        result = database.update_table(query)
+        return jsonify(dict(result))

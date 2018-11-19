@@ -1,13 +1,21 @@
 <div class="jumbotron jumbotron-fluid">
-  <div class="container">
-      <h1 class="display-4">Modification</h1>
+    <div class="container">
+      <h1 class="display-4">Modification Page</h1>
+       <p class="modify" *ngIf="modify">
+          </p>
+    </div>
   </div>
-</div>
-
-<div class = "container">
-  <textarea [rows]="5" [cols]="10" pInputTextarea autoResize="autoResize"
-  type="text" class="form-control" id="mod" required [(ngModel)]="mod"
-  name="mod" placeholder="Enter your Modification here"></textarea>
-  <br/>
-  <input type="Submit" value="Submit" (click)="getModification()">
-  <br/>
+  <div class = "container">
+    <br>
+    <p-dropdown [options]="functions" [(ngModel)]="funct"></p-dropdown>
+    <p-dropdown [options]="tables" [(ngModel)]="tbl"></p-dropdown>
+    <textarea [rows]="5" [cols]="10" pInputTextarea autoResize="autoResize"
+    type="text" class="form-control" id="query" required [(ngModel)]="query"
+    name="query" placeholder="Enter Values, Set And/Or Where Parameters: &emsp; ex: (name, id) VALUES ('sam', 'qwerty');'"></textarea>
+  </div>
+  <div class = "container" id = "content">
+  <br>
+  
+  <p-button label="Modify" (onClick)="handleClick($event)"></p-button>
+  <p id = "Message">{{ resultMessage }}</p>
+  </div>
