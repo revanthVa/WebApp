@@ -1,6 +1,8 @@
+<body background="https://www.bostonmagazine.com/wp-content/uploads/sites/2/2015/06/shutterstock_Glasses-of-light-and-dark-beer-on-a-pub-background.jpg">
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">Welcome to BarBeerDrinker!</h1>
+    
+    <h1 class="display-4"> Welcome to BarBeerDrinker!</h1>
     <p class="lead">Select a bar below to see some advanced statistics and analytics about it.
     </p>
       <a class="nav-link" routerLink="/barsAnalytics">Bar Analytics</a>
@@ -8,7 +10,7 @@
 </div>
 
 <div class="container">
-    <p-table [value]="bars">
+    <p-table [value]="bars" styleClass="someStyleClass">
       <ng-template pTemplate="header">
           <tr>
             <th>Name</th>
@@ -37,3 +39,4 @@
   </div>
 
   <br><br>
+</body>
