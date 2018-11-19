@@ -1,0 +1,20 @@
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+  <h1 class="display-4">Bartender Analytics</h1>
+  <p class="lead">Filter in the conditions below to see some advanced statistics and analytics about all the bartenders</p>
+  <p class="lead"> 
+      <b>***Make sure to choose a bar first and select the start shift corresponding to the end shift***</b>
+  </div>
+</div>
+<div>
+  <br>
+  <p-dropdown placeholder="Shift End" class = "float-right text-left" *ngIf="selectEnd" [options]="selectEnd" (onChange)="sortEnd($event.value)"  ></p-dropdown>
+  <p-dropdown placeholder="Shift Start" class = "float-right text-left" *ngIf="selectStart" [options]="selectStart" (onChange)="sortStart($event.value)" ></p-dropdown>
+  <p-dropdown placeholder="Bar" class = "float-right text-left" *ngIf="selectBars" [options]="selectBars" (onChange)="sortBars($event.value)" ></p-dropdown>
+</div>
+
+<div>
+  <br>
+  <div id = "bargraph"></div>
+</div>

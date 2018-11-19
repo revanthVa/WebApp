@@ -1,0 +1,12 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Bar Analytics</h1>
+  </div>
+</div>
+
+<div>
+  <br>
+  <p-dropdown class = "float-right text-left" *ngIf="selectBeers" [options]="selectBeers"  (onChange)="sortBeers($event.value)" ></p-dropdown>
+  <p-dropdown class = "float-right text-left" *ngIf="filterOptions" [options]="filterOptions"  (onChange)="sortBy($event.value)"></p-dropdown>
+  <div id = "bargraph"></div>
+</div>

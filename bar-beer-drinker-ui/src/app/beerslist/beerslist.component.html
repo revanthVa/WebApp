@@ -1,0 +1,30 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Beers</h1>
+      <p class="lead">Select a beer below to see some advanced statistics and analytics about it.</p>
+    </div>
+  </div>
+
+  <div class="container">
+      <p-table [value]="beers">
+        <ng-template pTemplate="header">
+            <tr>
+              <th>Name</th>
+              <th>Manufacturer</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-beer>
+            <tr>
+              
+              <td>
+                <a routerLink="/beers/{{ beer.name }}">
+                  {{beer.name}}
+                </a>
+              </td>
+              <td>{{beer.manf}}</td>
+            </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  
+    <br><br>

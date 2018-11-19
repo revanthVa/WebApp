@@ -1,0 +1,13 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+      <h1 class="display-4">Modification</h1>
+  </div>
+</div>
+
+<div class = "container">
+  <textarea [rows]="5" [cols]="10" pInputTextarea autoResize="autoResize"
+  type="text" class="form-control" id="mod" required [(ngModel)]="mod"
+  name="mod" placeholder="Enter your Modification here"></textarea>
+  <br/>
+  <input type="Submit" value="Submit" (click)="getModification()">
+  <br/>

@@ -1,0 +1,42 @@
+./atom
+# compiled output
+bar-beer-drinker-ui/dist
+bar-beer-drinker-ui/tmp
+bar-beer-drinker-ui/out-tsc
+
+# dependencies
+bar-beer-drinker-ui/node_modules
+
+# IDEs and editors
+bar-beer-drinker-ui/.idea
+bar-beer-drinker-ui/.project
+bar-beer-drinker-ui/.classpath
+bar-beer-drinker-ui/.c9/
+bar-beer-drinker-ui/*.launch
+bar-beer-drinker-ui/.settings/
+bar-beer-drinker-ui/*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+bar-beer-drinker-ui/.sass-cache
+bar-beer-drinker-ui/connect.lock
+bar-beer-drinker-ui/coverage
+bar-beer-drinker-ui/libpeerconnection.log
+bar-beer-drinker-ui/npm-debug.log
+bar-beer-drinker-ui/yarn-error.log
+bar-beer-drinker-ui/testem.log
+bar-beer-drinker-ui/typings
+
+# System Files
+bar-beer-drinker-ui/.DS_Store
+bar-beer-drinker-ui/Thumbs.db
+
+# server-side virtual environment
+server/venv
+server/**/__pycache__

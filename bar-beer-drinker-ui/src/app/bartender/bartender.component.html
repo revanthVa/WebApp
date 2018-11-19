@@ -1,0 +1,22 @@
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+  <h1 class="display-4">Bartenders</h1>
+  <p class="lead">Filter in the conditions below to see some advanced statistics and analytics about a bartender.
+      <p class="lead"> 
+        <b>***Make sure to select a bartender after selecting a different bar.***</b>
+  <a class="nav-link" routerLink="/bartendersAnalytics">Bartender Analytics</a>
+  </div>
+</div>
+<div>
+  <p class="float-left">Time of shift:
+    {{ bartenderShift[0].Dateday }}
+      <br>
+      {{ bartenderShift[0].start }} <span>-</span> {{bartenderShift[0].end }} 
+</p>
+</div>
+<div>
+  <p-dropdown placeholder="Bartender" class = "float-right text-left" *ngIf="selectBartenders" [options]="selectBartenders"  (onChange)="sortBartenders($event.value)" ></p-dropdown>
+  <p-dropdown placeholder="Bar" class = "float-right text-left" *ngIf="selectBars" [options]="selectBars"  (onChange)="sortBars($event.value)" ></p-dropdown>
+  <div id = "bargraph"></div>
+</div>

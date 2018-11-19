@@ -1,0 +1,39 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">{{ barName }}</h1>
+    <p class="bar-details">
+      {{ barDetails?.addr }} <span>|</span> {{barDetails?.city }} 
+      <span>|</span> {{barDetails?.state }}
+        <br>
+        {{ barDetails?.phone }}
+        <br>
+        {{ barDetails?.license }}
+    </p>
+  </div>
+</div>
+
+<div>
+  <br>
+  <div id = "bargraph"></div>
+</div>
+
+
+<br>
+<br>
+
+<div>
+  <br>
+  <p-dropdown class = "float-right text-left" *ngIf="filterOptions" [options]="filterOptions"  (onChange)="sortBy($event.value)"></p-dropdown>
+  <div id = "bargraph2"></div>
+</div>
+
+<div>
+  <br>
+  <p-dropdown class = "float-right text-left" *ngIf="filterOptions2" [options]="filterOptions2"  (onChange)="sortByTime($event.value)"></p-dropdown>
+  <div id = "bargraph3"></div>
+</div>
+
+<div>
+  <br>
+  <div id = "bargraph4"></div>
+</div>

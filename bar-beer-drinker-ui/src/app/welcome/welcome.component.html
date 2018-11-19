@@ -1,0 +1,39 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Welcome to BarBeerDrinker!</h1>
+    <p class="lead">Select a bar below to see some advanced statistics and analytics about it.
+    </p>
+      <a class="nav-link" routerLink="/barsAnalytics">Bar Analytics</a>
+  </div>
+</div>
+
+<div class="container">
+    <p-table [value]="bars">
+      <ng-template pTemplate="header">
+          <tr>
+            <th>Name</th>
+            <th>License</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-bar>
+          <tr>
+            <td>
+              <a routerLink="/bars/{{ bar.name }}">
+                {{bar.name}}
+              </a>
+            </td>
+            <td>{{bar.license}}</td>
+            <td>{{bar.phone}}</td>
+            <td>{{bar.addr}}</td>
+            <td>{{bar.city}}</td>
+            <td>{{bar.state}}</td>
+          </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+  <br><br>
